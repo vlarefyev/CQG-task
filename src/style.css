@@ -1,0 +1,38 @@
+#field {
+    width: 640px;
+    height: 640px;
+    box-sizing: content-box;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+}
+
+.garden-block {
+    box-sizing: border-box;
+    width: 80px;
+    height: 80px;
+    float: left;
+    border: 1px solid #79553D;
+    background-color: #6ac007;
+}
+
+.home-gardener {
+    background-image: url(./img/home-icon.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.carrot {
+    background-image: url(./img/carrot-icon.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.gardener {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url(./img/gardener-icon.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
