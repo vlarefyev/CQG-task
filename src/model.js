@@ -15,12 +15,12 @@ const garden = [
 const collection = {
     home: {},
     carrot: {
-        quantity: 0,
+        quantity: 63,
         allCarrots: []
     },
     gardener: {
-        point: 0,
-        position: []
+        lavel: 1,
+        position: {}
     }
 }
 
@@ -55,16 +55,16 @@ const createCarrot = (quantity) => {
 }
 
 const createGardener = () => {
-    for (let key in collection.home) {
-        collection.gardener.position[key] = collection.home[key];
-    }
+    Object.assign( collection.gardener.position, collection.home )
     drawGardener()
 }
 
-drawField(garden)
-createHomeGardener()
-createCarrot(10)
-createGardener()
+export const startLavel = () => {
+    drawField(garden)
+    createHomeGardener()
+    createCarrot( collection.carrot.quantity )
+    createGardener()
+}
 
 export const changePositionGardener = (keycode) => {
     if (keycode === "ArrowUp") {
@@ -86,6 +86,9 @@ export const changePositionGardener = (keycode) => {
     }
     moveGardener( collection.gardener.position )
     raiseCarrot( collection.gardener.position, collection.carrot.allCarrots )
+    if ( collection.carrot.allCarrots.length === 0 ) {
+        finishGame( collection.home, collection.gardener.position )
+    }
 }
 
 export const raiseCarrot = ( gardenerPos, carrotsPos) => {
@@ -93,6 +96,12 @@ export const raiseCarrot = ( gardenerPos, carrotsPos) => {
     if ( idCarrot > -1 ) {
         eraseCarrot([carrotsPos[idCarrot].posX, carrotsPos[idCarrot].posY])
         carrotsPos.splice( idCarrot, 1)
-        console.log( carrotsPos.length );
-    } 
+    }
+}
+
+const finishGame = ( home, gardener ) => {
+    if ( home.posX === gardener.posX && home.posY === gardener.posY ) {
+        startLavel()
+        collection.gardener.lavel++
+    }
 }

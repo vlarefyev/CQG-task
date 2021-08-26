@@ -48,7 +48,3 @@ const moveGardener = (position) => {
 }
 
 const eraseCarrot = (position) => document.querySelector(getFieldByCoordinates(position)).classList.remove("carrot")
-
-
-
-
