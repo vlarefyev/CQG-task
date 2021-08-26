@@ -1,4 +1,4 @@
-import { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener } from "./view"
+import { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot } from "./view"
 import { generateRandomCoordinate, checkIdenticalCoordinate } from "./utils"
 
 const garden = [
@@ -25,9 +25,7 @@ const collection = {
 }
 
 const createHomeGardener = () => {
-
     const coordinate = generateRandomCoordinate()
-
     collection.home = {
         posX: coordinate[0],
         posY: coordinate[1]
@@ -50,6 +48,7 @@ const createCarrot = (quantity) => {
                 posX: coordinate[0],
                 posY: coordinate[1]
             })
+
         }
     }
     drawCarrots(collection.carrot.allCarrots)
@@ -64,9 +63,8 @@ const createGardener = () => {
 
 drawField(garden)
 createHomeGardener()
-createCarrot(8)
+createCarrot(10)
 createGardener()
-
 
 export const changePositionGardener = (keycode) => {
     if (keycode === "ArrowUp") {
@@ -87,4 +85,14 @@ export const changePositionGardener = (keycode) => {
         }
     }
     moveGardener( collection.gardener.position )
+    raiseCarrot( collection.gardener.position, collection.carrot.allCarrots )
+}
+
+export const raiseCarrot = ( gardenerPos, carrotsPos) => {
+    const idCarrot = carrotsPos.indexOf(checkIdenticalCoordinate([gardenerPos.posX, gardenerPos.posY], carrotsPos)) 
+    if ( idCarrot > -1 ) {
+        eraseCarrot([carrotsPos[idCarrot].posX, carrotsPos[idCarrot].posY])
+        carrotsPos.splice( idCarrot, 1)
+        console.log( carrotsPos.length );
+    } 
 }

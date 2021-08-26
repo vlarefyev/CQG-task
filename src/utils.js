@@ -12,7 +12,7 @@ export const checkIdenticalCoordinate = (data, arr) => {
     for ( let i = 0; i < arr.length; i++ ) {
         if (arr[i].posX === data[0]) {
             if (arr[i].posY === data[1]) {
-                return true
+                return arr[i]
             }
         }
     }

@@ -2,7 +2,7 @@ import {
     getFieldByCoordinates
 } from "./utils"
 
-export { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener }
+export { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot }
 
 const field = document.querySelector("#field")
 
@@ -41,15 +41,14 @@ const drawGardener = () => {
     field.appendChild(gardener)
 }
 
-
-
-
 const moveGardener = (position) => {
     const gardener = field.querySelector(".gardener")
-
     gardener.style.top = (position.posY * 80) + "px"
     gardener.style.left = (position.posX * 80) + "px"
 }
+
+const eraseCarrot = (position) => document.querySelector(getFieldByCoordinates(position)).classList.remove("carrot")
+
 
 
 
