@@ -1,4 +1,4 @@
-import { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot } from "./view"
+import { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot, drawTimerBar, clearTimerBar } from "./view"
 import { generateRandomCoordinate, checkIdenticalCoordinate } from "./utils"
 
 const garden = [
@@ -13,15 +13,41 @@ const garden = [
 ]
 
 const collection = {
+    gameTime: 0,
     home: {},
     carrot: {
-        quantity: 63,
+        quantity: 3,
         allCarrots: []
     },
     gardener: {
-        lavel: 1,
+        level: 1,
         position: {}
     }
+}
+
+let timeoutId 
+
+export const startGame = ( gameTime ) => {
+    collection.gameTime = gameTime
+    startLevel()
+}
+
+const startLevel = () => {
+    drawField(garden)
+    createHomeGardener()
+    createCarrot(collection.carrot.quantity)
+    createGardener()
+    createTimer()
+}
+
+const createTimer = () => {
+    drawTimerBar( collection.gameTime )
+    timeoutId = setTimeout( gameOwer, collection.gameTime * 1000 )
+}
+
+const stopTimer = () => {
+    clearTimerBar()
+    clearTimeout( timeoutId )
 }
 
 const createHomeGardener = () => {
@@ -55,15 +81,8 @@ const createCarrot = (quantity) => {
 }
 
 const createGardener = () => {
-    Object.assign( collection.gardener.position, collection.home )
+    Object.assign(collection.gardener.position, collection.home)
     drawGardener()
-}
-
-export const startLavel = () => {
-    drawField(garden)
-    createHomeGardener()
-    createCarrot( collection.carrot.quantity )
-    createGardener()
 }
 
 export const changePositionGardener = (keycode) => {
@@ -84,24 +103,29 @@ export const changePositionGardener = (keycode) => {
             collection.gardener.position.posX++
         }
     }
-    moveGardener( collection.gardener.position )
-    raiseCarrot( collection.gardener.position, collection.carrot.allCarrots )
-    if ( collection.carrot.allCarrots.length === 0 ) {
-        finishGame( collection.home, collection.gardener.position )
+    moveGardener(collection.gardener.position)
+    raiseCarrot(collection.gardener.position, collection.carrot.allCarrots)
+    if (collection.carrot.allCarrots.length === 0) {
+        movingNextRound(collection.home, collection.gardener.position)
     }
 }
 
-export const raiseCarrot = ( gardenerPos, carrotsPos) => {
-    const idCarrot = carrotsPos.indexOf(checkIdenticalCoordinate([gardenerPos.posX, gardenerPos.posY], carrotsPos)) 
-    if ( idCarrot > -1 ) {
+export const raiseCarrot = (gardenerPos, carrotsPos) => {
+    const idCarrot = carrotsPos.indexOf(checkIdenticalCoordinate([gardenerPos.posX, gardenerPos.posY], carrotsPos))
+    if (idCarrot > -1) {
         eraseCarrot([carrotsPos[idCarrot].posX, carrotsPos[idCarrot].posY])
-        carrotsPos.splice( idCarrot, 1)
+        carrotsPos.splice(idCarrot, 1)
     }
 }
 
-const finishGame = ( home, gardener ) => {
-    if ( home.posX === gardener.posX && home.posY === gardener.posY ) {
-        startLavel()
-        collection.gardener.lavel++
+const movingNextRound = (home, gardener) => {
+    if (home.posX === gardener.posX && home.posY === gardener.posY) {
+        stopTimer()
+        startLevel()
+        collection.gardener.level++
     }
+}
+
+const gameOwer = () => {
+    collection.gardener.level = 1
 }

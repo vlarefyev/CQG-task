@@ -2,9 +2,30 @@ import {
     getFieldByCoordinates
 } from "./utils"
 
-export { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot }
+export { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot, drawTimerBar, clearTimerBar }
+
 
 const field = document.querySelector("#field")
+const timerProgress = document.querySelector(".progress")
+let idInterval
+let progress = 0
+
+const drawTimerBar = (gameTime) => idInterval = setInterval(startTimerBar, gameTime * 10)
+
+const startTimerBar = () => {
+    if (progress >= 100) {
+        progress = 0
+        clearTimerBar()
+    } else {
+        progress++
+        timerProgress.style.width = progress + "%"
+    }
+}
+
+const clearTimerBar = () => {
+    progress = 0
+    clearInterval(idInterval)
+}
 
 const drawElement = (position, className) => document.querySelector(getFieldByCoordinates(position)).classList.add(className)
 

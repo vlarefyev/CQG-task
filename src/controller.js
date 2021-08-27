@@ -1,6 +1,6 @@
-import { changePositionGardener, startGame, startLavel } from "./model"
+import { changePositionGardener, startGame } from "./model"
 
-startLavel()
+startGame( 10 )
 
 document.addEventListener("keydown", event => {
     changePositionGardener(event.code)
