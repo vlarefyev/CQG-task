@@ -3,7 +3,7 @@
     justify-content: center;
 }
 
-#field {
+.field {
     width: 640px;
     height: 640px;
     box-sizing: content-box;
@@ -56,9 +56,13 @@
     background-color: #6ac007;
 }
 
-.settings-bar {
+.user-bar {
     margin-top: 150px;
     margin-left: 100px;
     width: 250px;
     text-align: center;
+}
+
+.level {
+    font-size: 40px;
 }

@@ -2,13 +2,25 @@ import {
     getFieldByCoordinates
 } from "./utils"
 
-export { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot, drawTimerBar, clearTimerBar }
+export { 
+    drawField,
+    clearField, 
+    drawHomeGardener, 
+    drawCarrots, 
+    drawGardener, 
+    moveGardener, 
+    eraseCarrot, 
+    drawTimerBar, 
+    clearTimerBar, 
+    dwawUserBar,
+    updateUserBar,
+}
 
-
-const field = document.querySelector("#field")
+const field = document.querySelector(".field")
 const timerProgress = document.querySelector(".progress")
-let idInterval
+const userBar = document.querySelector(".user-bar")
 let progress = 0
+let idInterval
 
 const drawTimerBar = (gameTime) => idInterval = setInterval(startTimerBar, gameTime * 10)
 
@@ -29,6 +41,18 @@ const clearTimerBar = () => {
 
 const drawElement = (position, className) => document.querySelector(getFieldByCoordinates(position)).classList.add(className)
 
+const dwawUserBar = ( userLevel ) => {
+    const level = document.createElement("p")
+    level.classList.add("level")
+    level.textContent = `Уровень ${ userLevel }`
+    userBar.appendChild(level)
+}
+
+const updateUserBar = ( userLevel ) => {
+    const level = document.querySelector(".level")
+    level.textContent = `Уровень ${ userLevel }`
+}
+
 const drawField = (garden) => {
     let out = ''
     for (let i = 0; i < garden.length; i++) {
@@ -39,6 +63,11 @@ const drawField = (garden) => {
         }
     }
     field.innerHTML = out
+}
+
+const clearField = () => {
+    document.querySelector(".home-gardener").classList.remove("home-gardener")
+    field.removeChild( document.querySelector(".gardener") )
 }
 
 const drawHomeGardener = (home) => drawElement([home.posX, home.posY], "home-gardener")

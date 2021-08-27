@@ -1,5 +1,20 @@
-import { drawField, drawHomeGardener, drawCarrots, drawGardener, moveGardener, eraseCarrot, drawTimerBar, clearTimerBar } from "./view"
-import { generateRandomCoordinate, checkIdenticalCoordinate } from "./utils"
+import {
+    drawField,
+    drawHomeGardener,
+    drawCarrots,
+    drawGardener,
+    moveGardener,
+    eraseCarrot,
+    drawTimerBar,
+    clearTimerBar,
+    dwawUserBar,
+    clearField,
+    updateUserBar
+} from "./view"
+import {
+    generateRandomCoordinate,
+    checkIdenticalCoordinate
+} from "./utils"
 
 const garden = [
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -16,7 +31,7 @@ const collection = {
     gameTime: 0,
     home: {},
     carrot: {
-        quantity: 3,
+        quantity: 10,
         allCarrots: []
     },
     gardener: {
@@ -25,15 +40,16 @@ const collection = {
     }
 }
 
-let timeoutId 
+let timeoutId
 
-export const startGame = ( gameTime ) => {
+export const startGame = (gameTime) => {
     collection.gameTime = gameTime
+    drawField(garden)
+    dwawUserBar(collection.gardener.level)
     startLevel()
 }
 
 const startLevel = () => {
-    drawField(garden)
     createHomeGardener()
     createCarrot(collection.carrot.quantity)
     createGardener()
@@ -41,13 +57,13 @@ const startLevel = () => {
 }
 
 const createTimer = () => {
-    drawTimerBar( collection.gameTime )
-    timeoutId = setTimeout( gameOwer, collection.gameTime * 1000 )
+    drawTimerBar(collection.gameTime)
+    timeoutId = setTimeout(gameOwer, collection.gameTime * 1000)
 }
 
 const stopTimer = () => {
     clearTimerBar()
-    clearTimeout( timeoutId )
+    clearTimeout(timeoutId)
 }
 
 const createHomeGardener = () => {
@@ -120,12 +136,15 @@ export const raiseCarrot = (gardenerPos, carrotsPos) => {
 
 const movingNextRound = (home, gardener) => {
     if (home.posX === gardener.posX && home.posY === gardener.posY) {
-        stopTimer()
-        startLevel()
         collection.gardener.level++
+        stopTimer()
+        clearField()
+        updateUserBar(collection.gardener.level)
+        startLevel()
     }
 }
 
 const gameOwer = () => {
     collection.gardener.level = 1
+    updateUserBar(collection.gardener.level)
 }
