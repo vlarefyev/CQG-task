@@ -137,6 +137,7 @@ export const raiseCarrot = (gardenerPos, carrotsPos) => {
 const movingNextRound = (home, gardener) => {
     if (home.posX === gardener.posX && home.posY === gardener.posY) {
         collection.gardener.level++
+        collection.carrot.allCarrots = []
         stopTimer()
         clearField()
         updateUserBar(collection.gardener.level)

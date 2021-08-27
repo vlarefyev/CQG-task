@@ -2,16 +2,16 @@ import {
     getFieldByCoordinates
 } from "./utils"
 
-export { 
+export {
     drawField,
-    clearField, 
-    drawHomeGardener, 
-    drawCarrots, 
-    drawGardener, 
-    moveGardener, 
-    eraseCarrot, 
-    drawTimerBar, 
-    clearTimerBar, 
+    clearField,
+    drawHomeGardener,
+    drawCarrots,
+    drawGardener,
+    moveGardener,
+    eraseCarrot,
+    drawTimerBar,
+    clearTimerBar,
     dwawUserBar,
     updateUserBar,
 }
@@ -41,20 +41,20 @@ const clearTimerBar = () => {
 
 const drawElement = (position, className) => document.querySelector(getFieldByCoordinates(position)).classList.add(className)
 
-const dwawUserBar = ( userLevel ) => {
+const dwawUserBar = (userLevel) => {
     const level = document.createElement("p")
     level.classList.add("level")
-    level.textContent = `Уровень ${ userLevel }`
+    level.textContent = `Уровень ${userLevel}`
     userBar.appendChild(level)
 }
 
-const updateUserBar = ( userLevel ) => {
+const updateUserBar = (userLevel) => {
     const level = document.querySelector(".level")
-    
-    if ( userLevel > 0) {
-    level.textContent = `Уровень ${ userLevel }`
+
+    if (userLevel > 0) {
+        level.textContent = `Уровень ${userLevel}`
     } else {
-    level.textContent = "Не успел :) Чтобы начать игру заново вернись в дом."
+        level.textContent = "Не успел :) Чтобы начать игру заново вернись в дом."
     }
 }
 
@@ -71,8 +71,12 @@ const drawField = (garden) => {
 }
 
 const clearField = () => {
-    document.querySelector(".home-gardener").classList.remove("home-gardener")
-    field.removeChild( document.querySelector(".gardener") )
+
+    let carrots = document.querySelectorAll(".carrot")
+    carrots.forEach(elem => elem.classList.remove('carrot')),
+
+        document.querySelector(".home-gardener").classList.remove("home-gardener")
+    field.removeChild(document.querySelector(".gardener"))
 }
 
 const drawHomeGardener = (home) => drawElement([home.posX, home.posY], "home-gardener")
