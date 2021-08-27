@@ -50,7 +50,12 @@ const dwawUserBar = ( userLevel ) => {
 
 const updateUserBar = ( userLevel ) => {
     const level = document.querySelector(".level")
+    
+    if ( userLevel > 0) {
     level.textContent = `Уровень ${ userLevel }`
+    } else {
+    level.textContent = "Не успел :) Чтобы начать игру заново вернись в дом."
+    }
 }
 
 const drawField = (garden) => {

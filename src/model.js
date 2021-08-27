@@ -121,7 +121,7 @@ export const changePositionGardener = (keycode) => {
     }
     moveGardener(collection.gardener.position)
     raiseCarrot(collection.gardener.position, collection.carrot.allCarrots)
-    if (collection.carrot.allCarrots.length === 0) {
+    if (collection.carrot.allCarrots.length === 0 || collection.gardener.level === 0) {
         movingNextRound(collection.home, collection.gardener.position)
     }
 }
@@ -145,6 +145,6 @@ const movingNextRound = (home, gardener) => {
 }
 
 const gameOwer = () => {
-    collection.gardener.level = 1
+    collection.gardener.level = 0
     updateUserBar(collection.gardener.level)
 }
