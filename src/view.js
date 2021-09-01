@@ -45,7 +45,7 @@ const dwawUserBar = (userLevel) => {
     const level = document.createElement("p")
     level.classList.add("level")
     level.textContent = `Уровень ${userLevel}`
-    userBar.appendChild(level)
+    userBar.prepend(level)
 }
 
 const updateUserBar = (userLevel) => {
@@ -71,7 +71,6 @@ const drawField = (garden) => {
 }
 
 const clearField = () => {
-
     let carrots = document.querySelectorAll(".carrot")
     carrots.forEach(elem => elem.classList.remove('carrot')),
 

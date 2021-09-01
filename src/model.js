@@ -142,10 +142,17 @@ const movingNextRound = (home, gardener) => {
         clearField()
         updateUserBar(collection.gardener.level)
         startLevel()
+
+        if ( collection.gardener.level % 3 === 0 && collection.gameTime > 6) {
+            collection.gameTime--
+            collection.carrot.quantity++
+        }
     }
 }
 
 const gameOwer = () => {
     collection.gardener.level = 0
+    collection.gameTime = 10
+    collection.carrot.quantity = 10
     updateUserBar(collection.gardener.level)
 }
